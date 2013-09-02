@@ -41,7 +41,11 @@ if [ ! -e /.installed ]; then
   wget 'https://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar'
   unzip chromedriver_linux64_2.2.zip
   mv chromedriver /usr/local/bin
+  chmod 755 /usr/local/bin/chromedriver
   mv selenium-server-standalone-2.35.0.jar /usr/local/bin
+  chmod 644 /usr/local/bin/selenium-server-standalone-2.35.0.jar
+  cp /vagrant/etc/init/selenium.conf /etc/init
+  service selenium start
 
   # phantomjs
   su vagrant -l -c "npm install -g phantomjs"

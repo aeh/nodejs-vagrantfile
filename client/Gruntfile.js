@@ -107,6 +107,13 @@ module.exports = function (grunt) {
       },
       server: '.tmp'
     },
+    mochaProtractor: {
+      options: {
+        reporter: 'spec',
+        browsers: ['Chrome', 'Firefox']
+      },
+      files: 'test/e2e/*.js'
+    },
     jshint: {
       options: {
         jshintrc: '.jshintrc'
@@ -305,6 +312,13 @@ module.exports = function (grunt) {
     'connect:test',
     'karma:unit',
     'watch:karma'
+  ]);
+
+  grunt.registerTask('test:e2e', [
+    'clean:server',
+    'concurrent:test',
+    'connect:livereload',
+    'mochaProtractor'
   ]);
 
   grunt.registerTask('build', [
