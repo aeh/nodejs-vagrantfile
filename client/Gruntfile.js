@@ -346,6 +346,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test:e2e', [
     'clean:server',
     'concurrent:test',
+    'browserify',
     'connect:livereload',
     'mochaProtractor'
   ]);
