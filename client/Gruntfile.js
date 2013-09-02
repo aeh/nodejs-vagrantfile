@@ -55,6 +55,10 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: ['karma:unit:run']
+      },
+      browserify: {
+        files: ['!<%= yeoman.app %>/scripts/bundle.js', '<%= yeoman.app %>/scripts/**/*.js'],
+        tasks: ['browserify:app']
       }
     },
     connect: {
@@ -267,6 +271,29 @@ module.exports = function (grunt) {
         background: true
       }
     },
+    browserify: {
+      common: {
+        src: ['<%= yeoman.app %>/scripts/lib.js'],
+        dest: '.tmp/common.js',
+        options: {
+          transform: ['debowerify'],
+          shim: {
+            angularjs: {
+              path: '<%= yeoman.app %>/bower_components/angular/angular.js',
+              exports: 'angular'
+            }
+          }
+        }
+      },
+      app: {
+        src: ['<%= yeoman.app %>/scripts/app.js'],
+        dest: '.tmp/bundle.js',
+        options: {
+          external: ['angularjs'],
+          transform: ['debowerify']
+        }
+      }
+    },
     cdnify: {
       dist: {
         html: ['<%= yeoman.dist %>/*.html']
@@ -301,6 +328,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
+      'browserify',
       'connect:livereload',
       'watch'
     ]);
@@ -309,6 +337,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
+    'browserify',
     'connect:test',
     'karma:unit',
     'watch:karma'

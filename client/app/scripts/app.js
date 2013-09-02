@@ -1,13 +1,8 @@
 'use strict';
 
-angular.module('testApp', ['ngRoute'])
-  .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  }]);
+var angular  = require('angularjs');
+
+require('./routes');
+
+// Require Controllers here
+require('./controllers/main');
