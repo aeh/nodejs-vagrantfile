@@ -253,10 +253,12 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'less:server'
+        'less:server',
+        'browserify'
       ],
       test: [
         'less:server',
+        'browserify'
       ],
       dist: [
         'less:dist',
@@ -328,7 +330,6 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'browserify',
       'connect:livereload',
       'watch'
     ]);
@@ -337,7 +338,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'browserify',
     'connect:test',
     'karma:unit',
     'watch:karma'
@@ -346,7 +346,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test:e2e', [
     'clean:server',
     'concurrent:test',
-    'browserify',
     'connect:livereload',
     'mochaProtractor'
   ]);
