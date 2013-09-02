@@ -268,6 +268,11 @@ module.exports = function (grunt) {
       ]
     },
     karma: {
+      unitonce: {
+        configFile: 'karma.conf.js',
+        port: 9878,
+        singleRun: true
+      },
       unit: {
         configFile: 'karma.conf.js',
         background: true
@@ -339,6 +344,7 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'connect:test',
+    'karma:unitonce',
     'karma:unit',
     'watch:karma'
   ]);
